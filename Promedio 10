@@ -1,0 +1,102 @@
+package guiasublime1;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class GuiaSublime1 {
+
+    public static void main(String[] args) {
+        // TODO code application logic here
+        //1) Programa Java que lea por teclado 10 números enteros y los guarde en un array.
+        //A continuación calcula y muestra por separado la media de los valores positivos y 
+        //la de los valores negativos
+
+        Scanner teclado = new Scanner(System.in);  //se crea variable teclado para poder capturar por teclado cada termino a ingresar
+        Double numeros[] = new Double[10];              // Se crea e instancia el arreglo int Enteros de tamaño 10
+        Double datos = 0.0;
+        Double numero = 0.0;
+        int tampos = 10;
+        int tamneg = 10;
+
+        Double EnterosPositivosaux[] = new Double[10];
+        Double EnterosNegativosaux[] = new Double[10];
+
+        String str;// Se declara la variable numero para guardar cada numero ingresado por teclado
+        int terminos = 0;
+        int contaP = 0;                            // se declara una variable contador para utilizar en la media de valores positivos y negativos
+        int contaN = 0;
+        Double acumulaPositivos = 0.0;
+        Double acumulaNegativos = 0.0;
+        int aux = 0;
+
+        System.out.println("Ingrese 10 numeros enteros");
+        int j = 0;
+        int k = 0;
+        boolean ent = true;
+        for (int i = 0; i < numeros.length; i++) {
+            ent = true;
+
+            System.out.print("Ingrese el numero " + (i + 1) + " : ");
+            while (ent) {                                 // segundo while para volver a solicitar numero
+
+                try {                                    // segundo try para validar primer numero
+                    while ((datos = teclado.nextDouble()) == 0.0) {
+                        System.out.println("Ingrese un valor distinto de cero");
+                        System.out.print("Ingrese el numero " + (i + 1) + " : ");
+                    }
+                    numeros[i] = datos;
+                    ent = false;
+                    if (datos < 0) {
+                        EnterosNegativosaux[j] = datos;
+                        j++;
+                        contaN++;
+                    } else {
+                        if (datos > 0) {
+                            EnterosPositivosaux[k] = datos;
+                            k++;
+                            contaP++;
+                        }
+                    }
+
+                } catch (Exception e) {
+                    teclado.next();
+                    System.out.println("Ingrese un valor numerico");
+                    System.out.print("Ingrese el numero " + (i + 1) + " : ");
+                }
+
+            }
+
+        }
+        if (contaP > 0) {
+            tampos = contaP;
+        }
+        if (contaN > 0) {
+            tamneg = contaN;
+        }
+
+        Double EnterosPositivos[] = new Double[tampos];
+        Double EnterosNegativos[] = new Double[tamneg];
+
+        for (int i = 0; i < numeros.length; i++) {
+            System.out.println(numeros[i]);
+
+        }
+        for (int i = 0; i < tampos; i++) {
+            EnterosPositivos[i] = EnterosPositivosaux[i];
+            acumulaPositivos = acumulaPositivos + EnterosPositivos[i];
+            System.out.println("Enteros Positivos " + EnterosPositivos[i]);
+        }
+
+        System.out.print("Promedio Numeros Enteros Positivos: " + (acumulaPositivos / tampos));
+        System.out.println("\n");
+
+        for (int i = 0; i < tamneg; i++) {
+            EnterosNegativos[i] = EnterosNegativosaux[i];
+            acumulaNegativos = acumulaNegativos + EnterosNegativos[i];
+            System.out.println("Enteros Negativos " + EnterosNegativos[i]);
+        }
+        
+        System.out.print("Promedio Numeros Enteros Negativos: " + (acumulaNegativos / tamneg));
+        System.out.println("\n");
+    }
+}
